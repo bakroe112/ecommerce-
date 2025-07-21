@@ -1,9 +1,9 @@
 import React from 'react'
-import Hero from '../../components/hero/Hero'
+import { Hero } from '../../router'
 
 const Home = () => {
   return (
-    <div><Hero/></div>
+    <div><Hero /></div>
   )
 }
 
