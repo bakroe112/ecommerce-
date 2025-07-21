@@ -26,6 +26,7 @@ const CustomeLink = ({ className, children }) => {
   );
 };
 
+// icon hiển thị số trên cart và tim
 const Badges = ({ color, children }) => {
   return (
     <div

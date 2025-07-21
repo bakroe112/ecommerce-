@@ -1,10 +1,13 @@
-import React from 'react'
-import { Hero } from '../../router'
+import React from "react";
+import { Hero, Product } from "../../router";
 
 const Home = () => {
   return (
-    <div><Hero /></div>
-  )
-}
+    <div>
+      <Hero />
+      <Product />
+    </div>
+  );
+};
 
-export default Home
+export default Home;
