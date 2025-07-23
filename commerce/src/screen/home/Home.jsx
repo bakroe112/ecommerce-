@@ -1,11 +1,14 @@
 import React from "react";
-import { Hero, Product } from "../../router";
+import { Banner, Hero, Product, ProductSlide, ShippingInfo } from "../../router";
 
 const Home = () => {
   return (
     <div>
       <Hero />
       <Product />
+      <ShippingInfo/>
+      <Banner/>
+      <ProductSlide/>
     </div>
   );
 };

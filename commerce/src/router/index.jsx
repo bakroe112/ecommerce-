@@ -1,3 +1,9 @@
+export { ProductSlide } from "../components/product/ProductSlide";
+
+export { Banner } from "../components/product/Banner";
+
+export { ShippingInfo } from "../components/product/ShippingInfo";
+
 export { Product } from "../screen/product/Product";
 
 export { ProductCard } from "../components/product/ProductCard";

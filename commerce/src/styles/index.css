@@ -224,8 +224,8 @@ body {
     background-color: rgba(0, 0, 0, 0.7);
     z-index: 50000;
 }
-
-.slideproduct .images {
+ /* ! áp dụng với images nằm trong slideproduct  */
+.slideproduct .images { 
     position: relative;
     overflow: hidden;
     margin: 10px;
