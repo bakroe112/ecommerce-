@@ -85,7 +85,7 @@ export const ProductCard = ({
         </div>
 
         <div className="details flex items-center flex-col bg-white pt-6">
-          <NavLink to={`product-details/${id}`}>
+          <NavLink to={`/product-details/${id}`}>
             <BodyOne>{title}</BodyOne>
           </NavLink>
           <div className="flex items-center gap-2 -mt-2 mb-2">

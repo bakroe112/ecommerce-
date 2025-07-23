@@ -28,7 +28,7 @@ body {
     }
 
     .discount-btn {
-        @apply px-4 py-2 bg-primary text-white text-xs font-semibold;
+        @apply px-4 py-2 bg-primary text-white text-xs font-semibold; 
     }
 
     .feature-btn {

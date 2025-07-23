@@ -1,3 +1,4 @@
+export { ProductDetails } from "../screen/product/ProductDetails";
 
 export { InstagramPost } from "../components/hero/InstagramPost";
 
@@ -22,5 +23,3 @@ export { Shop } from "../screen/shop/Shop";
 export { Layout } from "../components/common/Layout";
 
 export { Footer } from "../components/common/Footer";
-
-

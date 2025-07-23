@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Home, Layout, Shop } from "./router";
+import { Home, Layout, ProductDetails, Shop } from "./router";
 const App = () => {
   return (
     <>
@@ -18,6 +18,14 @@ const App = () => {
             element={
               <Layout>
                 <Shop />
+              </Layout>
+            }
+          />
+          <Route
+            path="/product-details/:productId"
+            element={
+              <Layout>
+                <ProductDetails />
               </Layout>
             }
           />
