@@ -1,13 +1,14 @@
 import React from "react";
 import Header from "./Header";
 import PropTypes from "prop-types";
+import { Footer } from "./Footer";
 
 export const Layout = ({children}) => {
   return (
     <>
       <Header />
-      <main style={{ minHeight: "180vh" }}>{children}</main>
-      <h2>Footer</h2>
+      <main style={{ minHeight: "80vh" }}>{children}</main>
+      <Footer />
     </>
   );
 };

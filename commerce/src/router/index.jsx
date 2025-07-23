@@ -1,3 +1,8 @@
+
+export { InstagramPost } from "../components/hero/InstagramPost";
+
+export { Testimonials } from "../components/hero/Testimonials";
+
 export { ProductSlide } from "../components/product/ProductSlide";
 
 export { Banner } from "../components/product/Banner";
@@ -12,4 +17,10 @@ export { Hero } from "../components/hero/Hero";
 
 export { default as Home } from "../screen/home/Home";
 
+export { Shop } from "../screen/shop/Shop";
+
 export { Layout } from "../components/common/Layout";
+
+export { Footer } from "../components/common/Footer";
+
+
