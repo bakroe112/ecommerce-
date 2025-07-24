@@ -3,10 +3,17 @@ import { IoMdHeart } from "react-icons/io";
 import { IoCart, IoClose } from "react-icons/io5";
 import { NavLink } from "react-router-dom";
 import { BodyOne, Title } from "../common/CustomComponents";
-import { FaFacebookF, FaRegStar, FaStar, FaStarHalfAlt, FaTwitter } from "react-icons/fa";
+import {
+  FaFacebookF,
+  FaRegStar,
+  FaStar,
+  FaStarHalfAlt,
+  FaTwitter,
+} from "react-icons/fa";
 import { AiFillInstagram } from "react-icons/ai";
-import {  } from "react-icons/io5";
-
+import {} from "react-icons/io5";
+import { useDispatch } from "react-redux";
+import { cartAction } from "../../redux/slide/cartSlice";
 
 export const RenderRatingStarts = (rating) => {
   const totalStars = 5;
@@ -41,12 +48,18 @@ export const ProductCard = ({
   color,
 }) => {
   const [isModelOpen, setisModelOpen] = useState(false);
+  const dispatch = useDispatch();
 
   const openModel = () => {
     setisModelOpen(true);
   };
   const closeModel = () => {
     setisModelOpen(false);
+  };
+
+  const discountPrice = price[0].value - (price[0].value * discount) / 100;
+  const addToCart = () => {
+    dispatch(cartAction.addToCart({ id, name:title, price: discountPrice, images }));
   };
   return (
     <>
@@ -75,7 +88,7 @@ export const ProductCard = ({
             >
               Quick View
             </button>
-            <button className="add-to-card-btn product-btn primary-btn">
+            <button onClick={addToCart} className="add-to-card-btn product-btn primary-btn">
               <IoCart size={23} />
             </button>
             <button className="love-btn product-btn primary-btn">
@@ -195,8 +208,11 @@ export const ProductCard = ({
                     </div>
                   </div>
 
-                  <button className="close-btn absolute top-0 right-0 size-12 flex justify-center items-center bg-primary-green text-white" onClick={closeModel}>
-                    <IoClose size={20}/>
+                  <button
+                    className="close-btn absolute top-0 right-0 size-12 flex justify-center items-center bg-primary-green text-white"
+                    onClick={closeModel}
+                  >
+                    <IoClose size={20} />
                   </button>
                 </div>
               </div>

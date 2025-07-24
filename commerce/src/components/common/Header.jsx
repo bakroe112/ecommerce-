@@ -2,17 +2,16 @@ import React, { useEffect, useRef, useState } from "react";
 import LogoImg from "../../assets/common/logo.png";
 import { menulists } from "../../assets/data/data";
 import { Badges, CustomeLink, CustomeNavLink } from "./CustomComponents";
-import { IoSearchOutline, IoCartOutline, IoHeartOutline } from "react-icons/io5";
+import { IoSearchOutline } from "react-icons/io5";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { useLocation } from "react-router-dom";
-
+import { ModelCard } from "../cart/ModelCard";
 
 const Header = () => {
   const [isOpen, setisOpen] = useState(false);
   const [isScolled, setIsScolled] = useState(false);
   const menuRef = useRef(null);
   const location = useLocation();
-
 
   const toggleMenu = () => {
     setisOpen(!isOpen);
@@ -107,18 +106,8 @@ const Header = () => {
               } icon flex items-center justify-between gap-6`}
             >
               <IoSearchOutline size={23} />
-              <div className="relative z-20">
-                <IoHeartOutline size={23} />
-                <div className="absolute -top-2 -right-1.5">
-                  <Badges color="bg-primary-green">0</Badges>
-                </div>
-              </div>
-              <div className="relative z-20">
-                <IoCartOutline size={23} />
-                <div className="absolute -top-2 -right-1.5">
-                  <Badges color="bg-primary-green">0</Badges>
-                </div>
-              </div>
+
+              <ModelCard />
 
               <button
                 onClick={toggleMenu}
@@ -134,10 +123,17 @@ const Header = () => {
           </div>
 
           {/* Reponsive Menu dưới 768px */}
-          <div ref={menuRef} className={`lg:flex lg:items-center lg:w-auto w-full p-5 absolute right-0 top-full menu-container ${isOpen ? "open" : "closed"} `}>
+          <div
+            ref={menuRef}
+            className={`lg:flex lg:items-center lg:w-auto w-full p-5 absolute right-0 top-full menu-container ${
+              isOpen ? "open" : "closed"
+            } `}
+          >
             {menulists.map((list) => (
               <li key={list.id} className="uppercase list-none">
-                <CustomeNavLink href={list.path} className="text-white">{list.link}</CustomeNavLink>
+                <CustomeNavLink href={list.path} className="text-white">
+                  {list.link}
+                </CustomeNavLink>
               </li>
             ))}
           </div>
