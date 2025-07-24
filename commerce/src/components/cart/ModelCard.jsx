@@ -3,16 +3,28 @@ import { IoCartOutline, IoCloseOutline, IoHeartOutline } from "react-icons/io5";
 import { Badges, BodyOne, Title } from "../common/CustomComponents";
 import { useDispatch, useSelector } from "react-redux";
 import {
-    cartAction,
+  cartAction,
+  clearCart,
   selectedTotalPrice,
   selectedTotalQuantity,
 } from "../../redux/slide/cartSlice";
 import { NavLink } from "react-router-dom";
+import { CheckOutForm } from "./CheckOutForm";
+import {
+  selectedTotalFavorites,
+  favoritesAction,
+} from "../../redux/slide/favoriteSlice";
+import PropTypes from "prop-types";
 
 export const ModelCard = () => {
   const totalQuantity = useSelector(selectedTotalQuantity);
   const cartItem = useSelector((state) => state.cart.itemList);
   const totalPrice = useSelector(selectedTotalPrice);
+  const favoritestItem = useSelector(
+    (state) => state.favorites.favoritesItemList
+  );
+
+  const totalFavorites = useSelector(selectedTotalFavorites);
 
   const [isOpen, setIsOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
@@ -36,12 +48,19 @@ export const ModelCard = () => {
     setActiveTab(tab);
   };
 
+  const handlePaymentSuccess = () => {
+    console.log("================================");
+    console.log("Payment Success");
+    console.log("================================");
+    clearCart();
+  };
+
   return (
     <>
       <button className="relative z-20" onClick={openModel}>
         <IoHeartOutline size={23} />
         <div className="absolute -top-2 -right-1.5">
-          <Badges color="bg-primary-green">0</Badges>
+          <Badges color="bg-primary-green">{totalFavorites}</Badges>
         </div>
       </button>
 
@@ -84,7 +103,7 @@ export const ModelCard = () => {
               >
                 Wishlist
                 <span className="size-7 text-[11px] font-normal rounded-full text-white gird place-content-center bg-primary">
-                  0
+                  {totalFavorites}
                 </span>
               </button>
             </div>
@@ -112,12 +131,32 @@ export const ModelCard = () => {
                   <Title level={6}>SubTotal:</Title>
                   <Title level={6}>{totalPrice.toFixed(2)}</Title>
                 </div>
+                <div className="checkout">
+                  <CheckOutForm
+                    total={totalPrice}
+                    handlePaymentSuccess={handlePaymentSuccess}
+                  />
+                </div>
                 <NavLink to={"/cart"} className="checkout">
                   <button className="primary-btn w-full">View Cart</button>
                 </NavLink>
               </>
             ) : (
-              <>wish</>
+              <>
+                {favoritestItem.map((item) => (
+                  <FavoriteProduct
+                    key={item.id}
+                    id={item.id}
+                    cover={item.cover}
+                    name={item.name}
+                    price={item.price}
+                    quantity={item.quantity}
+                  />
+                ))}
+                <NavLink to={"/cart"} className="checkout">
+                  <button className="primary-btn w-full">Check Your Favorite</button>
+                </NavLink>
+              </>
             )}
           </div>
         </>
@@ -130,7 +169,7 @@ export const CartProduct = ({ id, cover, name, price, quantity }) => {
   const dispatch = useDispatch();
 
   const removeCartItems = () => {
-    dispatch(cartAction.removeFromAllCart(id))
+    dispatch(cartAction.removeFromAllCart(id));
   };
   return (
     <>
@@ -158,4 +197,54 @@ export const CartProduct = ({ id, cover, name, price, quantity }) => {
       </div>
     </>
   );
+};
+
+export const FavoriteProduct = ({ id, cover, name, price, quantity }) => {
+  const dispatch = useDispatch();
+
+  const removeFavoritesItems = () => {
+    dispatch(favoritesAction.removeFromFavorites(id));
+  };
+  return (
+    <>
+      <div className="mt-5 border-b-2 border-gray-200 pb-5">
+        <div className="flex items-center gap-5">
+          <div className="images size-20">
+            {cover?.slice(0, 1).map((images, i) => (
+              <img
+                src={images?.image}
+                key={i}
+                className="size-full object-cover"
+              />
+            ))}
+          </div>
+          <div className="details w-1/2">
+            <BodyOne>{name}</BodyOne>
+            <p className="text-primary-green">
+              {quantity} x ${price?.toFixed(2)}
+            </p>
+          </div>
+          <button className="size-10 bg-gray-200 flex items-center justify-center rounded-full text-primary">
+            <IoCloseOutline size={25} onClick={removeFavoritesItems} />
+          </button>
+        </div>
+      </div>
+    </>
+  );
+};
+
+CartProduct.propTypes = {
+  id: PropTypes.isRequired,
+  cover: PropTypes.isRequired,
+  name: PropTypes.isRequired,
+  price: PropTypes.isRequired,
+  quantity: PropTypes.isRequired,
+};
+
+FavoriteProduct.propTypes = {
+  id: PropTypes.isRequired,
+  cover: PropTypes.isRequired,
+  name: PropTypes.isRequired,
+  price: PropTypes.isRequired,
+  quantity: PropTypes.isRequired,
 };

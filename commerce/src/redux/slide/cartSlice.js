@@ -48,11 +48,16 @@ const cartSlice = createSlice({
         0
       );
     },
+    clearCart(state) {
+      state.itemList = [];
+      state.totalQuantity = 0;
+    },
   },
 });
 
 export const cartAction = cartSlice.actions; // * Xuất các hàm reducer trong cartSlice vd: addToCart
 
+export const { clearCart } = cartSlice.actions;
 export const selectedTotalQuantity = createSelector(
   (state) => state.cart.itemList,
   (itemList) => itemList.reduce((acc, item) => acc + item.quantity, 0)

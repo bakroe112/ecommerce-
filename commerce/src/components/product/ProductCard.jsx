@@ -14,6 +14,7 @@ import { AiFillInstagram } from "react-icons/ai";
 import {} from "react-icons/io5";
 import { useDispatch } from "react-redux";
 import { cartAction } from "../../redux/slide/cartSlice";
+import { favoritesAction } from "../../redux/slide/favoriteSlice";
 
 export const RenderRatingStarts = (rating) => {
   const totalStars = 5;
@@ -59,7 +60,19 @@ export const ProductCard = ({
 
   const discountPrice = price[0].value - (price[0].value * discount) / 100;
   const addToCart = () => {
-    dispatch(cartAction.addToCart({ id, name:title, price: discountPrice, images }));
+    dispatch(
+      cartAction.addToCart({ id, name: title, price: discountPrice, images })
+    );
+  };
+  const addToFavorites = () => {
+    dispatch(
+      favoritesAction.addToFavorites({
+        id,
+        name: title,
+        price: discountPrice,
+        images,
+      })
+    );
   };
   return (
     <>
@@ -88,10 +101,16 @@ export const ProductCard = ({
             >
               Quick View
             </button>
-            <button onClick={addToCart} className="add-to-card-btn product-btn primary-btn">
+            <button
+              onClick={addToCart}
+              className="add-to-card-btn product-btn primary-btn"
+            >
               <IoCart size={23} />
             </button>
-            <button className="love-btn product-btn primary-btn">
+            <button
+              onClick={addToFavorites}
+              className="love-btn product-btn primary-btn"
+            >
               <IoMdHeart size={23} />
             </button>
           </div>

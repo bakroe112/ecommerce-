@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   cartAction,
+  clearCart,
   selectedTotalPrice,
   selectedTotalQuantity,
 } from "../redux/slide/cartSlice";
@@ -9,12 +10,19 @@ import BgImage from "../assets/common/Frame.png";
 import { BodyOne, Title } from "../components/common/CustomComponents";
 import { BiMinus, BiPlus } from "react-icons/bi";
 import { IoCloseOutline } from "react-icons/io5";
+import StripeCheckout from "react-stripe-checkout";
 
 export const CartPage = () => {
   const totalQuantity = useSelector(selectedTotalQuantity);
   const cartItem = useSelector((state) => state.cart.itemList);
   const totalPrice = useSelector(selectedTotalPrice);
-
+    const dispatch = useDispatch();
+  const handleToken = (token) => {
+        console.log("================================");
+        console.log(token);
+        console.log("================================");
+    dispatch(clearCart());
+  };
   return (
     <>
       <section className="mt-16">
@@ -47,8 +55,7 @@ export const CartPage = () => {
                     <th scope="col" className="px-6 py-3">
                       Subtotal
                     </th>
-                    <th scope="col" className="px-6 py-3">
-                    </th>
+                    <th scope="col" className="px-6 py-3"></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -87,7 +94,18 @@ export const CartPage = () => {
                 <p className="w-32">Total</p>
                 <p className="text-sm font-normal">${totalPrice.toFixed(2)}</p>
               </div>
-              <button className="primary-btn mt-5">Process To Checkout</button>
+              <StripeCheckout
+                token={handleToken}
+                stripeKey="pk_test_51RoL8i2YfaFbTl5uJJiNt3XAkghp91V53tfChcNlPC8eZHH9uxYe2b2UJKh8JGMMV9FLoFZ7Erj8M7eKR3HNzOOV00TEIRwHQ9"
+                amount={totalPrice * 100}
+                name="MoonCart Website"
+                email="mooncart@gmail.com"
+                description="Payment test"
+              >
+                <button className="primary-btn mt-5">
+                  Process To Checkout
+                </button>
+              </StripeCheckout>
             </div>
           </div>
         </div>
@@ -96,11 +114,24 @@ export const CartPage = () => {
   );
 };
 
-export const CartPageCard = ({ id, cover, name, price, quantity, totalPrice }) => {
+export const CartPageCard = ({
+  id,
+  cover,
+  name,
+  price,
+  quantity,
+  totalPrice,
+}) => {
   const dispatch = useDispatch();
-  const incCartitems = () => {dispatch(cartAction.addToCart({id,name,price}))};
-  const removCartitem = () => {dispatch(cartAction.removeFromCart(id))};
-  const removCartitems = () => {dispatch(cartAction.removeFromAllCart(id))};
+  const incCartitems = () => {
+    dispatch(cartAction.addToCart({ id, name, price }));
+  };
+  const removCartitem = () => {
+    dispatch(cartAction.removeFromCart(id));
+  };
+  const removCartitems = () => {
+    dispatch(cartAction.removeFromAllCart(id));
+  };
 
   return (
     <>
