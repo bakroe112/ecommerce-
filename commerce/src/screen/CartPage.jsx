@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  cartAction,
   selectedTotalPrice,
   selectedTotalQuantity,
 } from "../redux/slide/cartSlice";
@@ -13,7 +14,7 @@ export const CartPage = () => {
   const totalQuantity = useSelector(selectedTotalQuantity);
   const cartItem = useSelector((state) => state.cart.itemList);
   const totalPrice = useSelector(selectedTotalPrice);
-  const dispatch = useDispatch();
+
   return (
     <>
       <section className="mt-16">
@@ -96,9 +97,10 @@ export const CartPage = () => {
 };
 
 export const CartPageCard = ({ id, cover, name, price, quantity, totalPrice }) => {
-  const incCartitems = () => {};
-  const removCartitem = () => {};
-  const removCartitems = () => {};
+  const dispatch = useDispatch();
+  const incCartitems = () => {dispatch(cartAction.addToCart({id,name,price}))};
+  const removCartitem = () => {dispatch(cartAction.removeFromCart(id))};
+  const removCartitems = () => {dispatch(cartAction.removeFromAllCart(id))};
 
   return (
     <>
