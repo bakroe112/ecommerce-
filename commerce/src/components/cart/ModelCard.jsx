@@ -7,11 +7,12 @@ import {
   selectedTotalPrice,
   selectedTotalQuantity,
 } from "../../redux/slide/cartSlice";
+import { NavLink } from "react-router-dom";
 
 export const ModelCard = () => {
   const totalQuantity = useSelector(selectedTotalQuantity);
   const cartItem = useSelector((state) => state.cart.itemList);
-  const totalprice = useSelector(selectedTotalPrice);
+  const totalPrice = useSelector(selectedTotalPrice);
 
   const [isOpen, setIsOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
@@ -109,11 +110,11 @@ export const ModelCard = () => {
                 ))}
                 <div className="total flex items-center justify-between mt-10">
                   <Title level={6}>SubTotal:</Title>
-                  <Title level={6}>{totalprice.toFixed(2)}</Title>
+                  <Title level={6}>{totalPrice.toFixed(2)}</Title>
                 </div>
-                <div className="checkout">
+                <NavLink to={"/cart"} className="checkout">
                   <button className="primary-btn w-full">View Cart</button>
-                </div>
+                </NavLink>
               </>
             ) : (
               <>wish</>
